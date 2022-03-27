@@ -1,0 +1,117 @@
+<%- include('header'); %>
+
+  <div class="card ">
+    <div class="card-header">
+      <h3 class="card-title">Projects <small>
+        <%= count-1 + " Records" %>
+        </small> </h3>
+
+      <div class="card-tools">
+        <div class="card-tools">
+          <ul class="pagination pagination-sm float-right">
+            <li class="page-item"><a class="page-link" href="?page=<%= prev %>"> « Previous</a></li>
+            <li class="page-item"><a class="page-link" href="?page=<%= next %>"> Next »</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0 ">
+      <table class="table  projects">
+        <thead>
+          <tr>
+            <th>
+              #
+            </th>
+            <th>
+              Project Name
+            </th>
+            <th>
+              Promoted
+            </th>
+            <th>
+              Approved
+            </th>
+            <th class="text-center">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% id=1 %>
+            <% for(var i=0; i < data.length; i++) { %>
+              <tr>
+                <td>
+                  <%= data[i].project_id %>
+                </td>
+                <td>
+                  <strong>
+                    <%= data[i].project_name %>
+                  </strong>
+                  <br>
+                  <small class="text-uppercase">
+                    <%= data[i].type %>
+                  </small>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                      <%= data[i].promoted==1 ? "Promoted" : "Not Promoted" %>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="/promote/promote/<%= data[i]._id %>">Promote</a>
+                      <a class="dropdown-item" href="/promote/unpromote/<%= data[i]._id %>">Un Promote</a>
+                    </div>
+                  </div>
+
+                </td>
+
+                <td>
+                  <div class="btn-group">
+                    <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                      <%= data[i].approved==1 ? "Approved" : "Rejected" %>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="/approve/approve/<%= data[i]._id %>">Approve</a>
+                      <a class="dropdown-item" href="/approve/reject/<%= data[i]._id %>">Reject</a>
+                    </div>
+                  </div>
+                </td>
+
+                <td class="project-actions text-center">
+                  <a class="btn btn-info btn-sm" href="/editproject/<%= data[i].project_id %>">
+                    <i class="fas fa-pencil-alt">
+                    </i>
+                    Edit
+                  </a>
+                  <a class="btn btn-danger btn-sm" href="/delete/<%= data[i]._id %>">
+                    <i class="fas fa-trash">
+                    </i>
+                    Delete
+                  </a>
+                </td>
+              </tr>
+              <% } %>
+        </tbody>
+      </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="d-flex ">
+
+    </div>
+
+  </div>
+
+  <br><br>
+
+  <script>
+    let params = window.location.search
+    if (params && params.split("=")[0]!="?page") {
+      params = params.split("=")[1]
+      alert(`Project ${params} successfuly`)
+      window.location.href = "/"
+    }
+  </script>
+
+  <%- include('footer'); %>

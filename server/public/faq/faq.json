@@ -1,0 +1,18 @@
+[
+    {
+        "question":"This is question 1 for faq",
+        "answer":"This is answer 1 for faq"
+    },
+    {
+        "question":"This is question 2 for faq",
+        "answer":"This is answer 2 for faq"
+    },
+    {
+        "question":"This is question 3 for faq",
+        "answer":"This is answer 3 for faq"
+    },
+    {
+        "question":"This is question 4 for faq",
+        "answer":"This is answer 4 for faq"
+    }
+]

@@ -1,0 +1,187 @@
+<%- include('header'); %>
+
+    <div class="card ">
+        <div class="card-header">
+            <h3 class="card-title font-weight-bold">Add Banners <small>
+                </small></h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0 ">
+            <table class="table  projects">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" id="bannerimageinp" class="custom-file-input">
+                                    <label class="custom-file-label" for="exampleInputFile">Choose Banner Image</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Upload</span>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <input type="text" class="form-control" value="" id="addbannerlink"
+                                placeholder="Link Ex( https://google.com )">
+                        </th>
+                        <th class="text-center">
+                            <button class="btn btn-primary w-100" onclick="addbanner()">Add + </button>
+                        </th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+
+    <div class="card ">
+        <div class="card-header">
+            <h3 class="card-title font-weight-bold"> Banners <small>
+                    <%= data.length + " Records" %>
+                </small></h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0 ">
+            <table class="table  projects">
+                <thead>
+                    <tr>
+
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Link
+                        </th>
+                        <th class="text-center">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% id=1 %>
+                        <% for(var i=0; i < data.length; i++) { %>
+                            <tr>
+                                <td>
+                                    <img src="http://localhost/public/banner/<%= data[i].image %>" style="width:200px;"
+                                        alt="">
+                                </td>
+                                <td class="">
+                                    <a href="<%= data[i].link %>" target="_blank">
+                                        <%= data[i].link %>
+                                    </a>
+                                </td>
+                                <td class="project-actions text-center">
+                                    <button class="btn btn-danger btn-sm" onclick="deletebanner('<%= data[i]._id %>')">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            <% } %>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+
+    <br><br>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const url = "https://api.upcomingmints.com"
+        // const url = "http://localhost:80"
+
+        let params = window.location.search
+        if (params) {
+            params = params.split("=")[1]
+            alert(`Banner ${params} successfuly`)
+            window.location.href = "/"
+        }
+        console.log(params);
+
+
+        // add banner script 
+
+        const convertBase64 = (file) => {
+            return new Promise((resolve, reject) => {
+                const fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+
+                fileReader.onload = () => {
+                    resolve(fileReader.result);
+                };
+
+                fileReader.onerror = (error) => {
+                    reject(error);
+                };
+            });
+        };
+
+        let bannerimageinp = document.querySelector('#bannerimageinp')
+        let addbannerlink = document.querySelector('#addbannerlink')
+        let banner64 = ""
+
+
+        bannerimageinp.onchange = async (e) => {
+            let logotype = e.target.files[0].type.split('/')[0]
+            if (logotype != "image") {
+                alert("Invalid Image Format")
+                e.target.value = ""
+                banner64 = ""
+            } else {
+                banner64 = await convertBase64(e.target.files[0]);
+            }
+        }
+
+        const addbanner = () => {
+            if (banner64 != "" && addbannerlink.value != '') {
+                axios.post(`${url}/addbanner`, {image:banner64,link:addbannerlink.value}).then(async function (response) {
+                     if (response.data.code == 200) {
+                         alert("Banner added successfuly")
+                        window.location.href = '/banner';
+                    }
+                    else if (response.data.code == 400 || response.data.code == 0 ) {
+                        alert(response.data.message)
+                    }
+                })
+            } else {
+                alert("Image and Link are required")
+            }
+        }
+
+        const deletebanner = (id) =>{
+            if(id){
+                axios.post(`${url}/deletebanner`, {id}).then(async function (response) {
+                     if (response.data.code == 200) {
+                         alert("Banner deleted successfuly")
+                        window.location.href = '/banner';
+                    }
+                    else if (response.data.code == 400 || response.data.code == 0 ) {
+                        alert(response.data.message)
+                    }
+                })
+            }
+        }
+        // add banner script !
+
+    </script>
+
+    <%- include('footer'); %>

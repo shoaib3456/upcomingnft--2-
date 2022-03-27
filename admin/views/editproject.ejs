@@ -1,0 +1,367 @@
+<%- include('header'); %>
+
+  <link rel="stylesheet" href="../vendor/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../vendor/dist/css/adminlte.min.css">
+
+  <style>
+    .req-small {
+      color: rgb(255, 0, 128);
+    }
+  </style>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <div class="card card-secondary">
+          <div class="card-header d-flex align-items-center">
+            <h3 class="card-title pr-2">Edit Project <small> <u><a href="https://upcomingnfts.net/details/<%= data.project_id %>"  target="_blank">https://upcomingnfts.net/details/<%= data.project_id %></a></u></small></h3>
+
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <div class="card-body">
+
+
+
+            <form action="/addprojectdb" method="POST" enctype="multipart/form-data" id="addform">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Project Name<small class="text-danger"> required</small></label>
+                    <input type="text" class="form-control" name="project_name" value="<%= data.project_name %>"
+                      id="project_name" required>
+                  </div>
+                  <label for="exampleInputEmail1">Logo 1 </label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="logo" id="logo">
+                      <label class="custom-file-label" for="exampleInputFile">
+                        <%= data.logo %>
+                      </label>
+                    </div>
+                    <div class="input-group-append">
+                      <span class="input-group-text">Upload</span>
+                    </div>
+                  </div>
+                  <label for="exampleInputEmail1" class="pt-3">Logo 2 </label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="logo2" name="logo2">
+                      <label class="custom-file-label" for="exampleInputFile">
+                        <%= data.logo2 %>
+                      </label>
+                    </div>
+                    <div class="input-group-append">
+                      <span class="input-group-text">Upload</span>
+                    </div>
+                  </div>
+                  <label for="exampleInputEmail1" class="pt-3">Logo 3 </label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="logo3" id="logo3">
+                      <label class="custom-file-label" for="exampleInputFile">
+                        <%= data.logo3 %>
+                      </label>
+                    </div>
+                    <div class="input-group-append">
+                      <span class="input-group-text">Upload</span>
+                    </div>
+                  </div>
+                  <div class="form-group pt-3">
+                    <label for="exampleInputEmail1">Cost <small class="text-danger"> required</small></label>
+                    <input type="text" class="form-control" name="cost" value="<%= data.cost %>" id="cost" required>
+                  </div>
+                  <div class="form-group ">
+                    <label for="exampleInputEmail1">Supply <small class="text-danger"> required</small></label>
+                    <input type="text" class="form-control" name="supply" value="<%= data.supply %>" id="supply"
+                      required>
+                  </div>
+                  <div class="form-group ">
+
+                    <label for="exampleInputEmail1">Type </label>
+                    <select name="type" class="form-control" id="type" required>
+                      <option value="Ethereum" <%= data.type =="Ethereum" && "Selected" %> >Ethereum</option>
+                      <option value="Solana" <%= data.type =="Solana" && "Selected" %>>Solana</option>
+                      <option value="Cardano" <%= data.type =="Cardano" && "Selected" %>>Cardano</option>
+                      <option value="Polygon" <%= data.type =="Polygon" && "Selected" %>>Polygon</option>
+                      <option value="Other" <%= data.type =="Other" && "Selected" %>>Other</option>
+                    </select>
+                  </div>
+                  <div class="row mx-0 form-group ">
+                    <div class="col-lg-6 pl-0 pr-lg-2 pr-0">
+                      <label>Release Date <small class="text-danger"> required</small></label>
+                      <input type="date" name="release_date" class="form-control" value="<%= data.release_date %>"
+                        id="release_date" >
+                    </div>
+                    <div class="col-lg-6 pr-0 pl-lg-2 pl-0">
+                      <div class=""><label>Time <small class="text-danger"> required</small>
+                        </label><input type="time" name="release_time" class="form-control" id="release_time"
+                          value="<%= data.release_time %>" >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group ">
+                    <label>Description <small class="text-danger"> required</small></label>
+                    <textarea name="description" class="form-control" id="description" value=""
+                      required><%= data.description %></textarea>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+
+                  <div class="form-group ">
+                    <label>Discord</label>
+                    <input type="text" class="form-control" id="discord" name="discord" value="<%= data.discord %>">
+                  </div>
+                  <div class="form-group ">
+                    <label>Discord Followers</label>
+                    <input type="number" class="form-control" id="discord_count" name="discord_count" value="<%= data.discord_count %>">
+                  </div>
+                  <div class="form-group ">
+                    <label>Twitter</label>
+                    <input type="text" class="form-control" id="twitter" name="twitter" value="<%= data.twitter %>">
+                  </div>
+                  <div class="form-group ">
+                    <label>Twitter Followers</label>
+                    <input type="number" class="form-control" id="twitter_count" name="twitter_count" value="<%= data.twitter_count %>">
+                  </div>
+                  <div class="form-group ">
+                    <label>Website</label>
+                    <input type="text" class="form-control" id="website" name="website" value="<%= data.website %>">
+                  </div>
+                  <div class="form-group ">
+                    <label>More Information</label>
+                    <textarea class="form-control" id="more_information"
+                      name="more_information"><%= data.more_information %></textarea>
+                  </div>
+                  <h5>More Controls</h5>
+                  <div class="form-group ">
+                    <label>Intrested To Buy</label>
+                    <input type="number" class="form-control" id="intrested" name="intrested"
+                      value="<%= data.intrested %>">
+                  </div>
+                  
+                  <div class="btn-group w-100 mb-3">
+                    <select name="promote" id="promote" class="form-control">
+                      <option value="1" <%= data.promoted == 1 ? "selected" : "" %>>promote</option>
+                      <option value="0" <%= data.promoted == 0 ? "selected" : "" %>>unpromote</option>
+                    </select>
+                  </div>
+                  <div class="btn-group w-100 mb-3">
+                    <select name="approve" id="approve" class="form-control">
+                      <option value="1" <%= data.approved == 1 ? "selected" : "" %>>approved</option>
+                      <option value="0" <%= data.approved == 0 ? "selected" : "" %> >reject</option>
+                    </select>
+                  </div>
+                  
+                  <img src="https://api.upcomingnfts.net/public/<%= data.logo %>" width="100px" alt="">
+                  <img src="https://api.upcomingnfts.net/public/<%= data.logo2 %>" width="100px" alt="">
+                  <img src="https://api.upcomingnfts.net/public/<%= data.logo3 %>" width="100px" alt="">
+                </div>
+              </div>
+
+
+          </div>
+          <!-- /.card-body -->
+
+          <div class="card-footer ">
+            <button type="submit" id="submitbtn" class="btn btn-primary d-flex align-items-center px-5">
+              Submit
+              <div class="spinner-border spinner-border-sm text-light ml-2" id="loader" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </button>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Default box -->
+
+  <!-- /.card -->
+
+  <%- include('footer'); %>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+
+
+
+      const url = "https://api.upcomingmints.com"
+      // const url = "http://localhost:80"
+
+      let loader = document.querySelector('#loader')
+      loader.style.opacity = "0"
+
+
+      const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+          const fileReader = new FileReader();
+          fileReader.readAsDataURL(file);
+
+          fileReader.onload = () => {
+            resolve(fileReader.result);
+          };
+
+          fileReader.onerror = (error) => {
+            reject(error);
+          };
+        });
+      };
+
+      const addform = document.querySelector("#addform")
+      const submitbtn = document.querySelector("#submitbtn")
+
+      let logo64 = "";
+      let logo264 = "";
+      let logo364 = "";
+
+      let logoname = "<%= data.logo%>";
+      let logoname2 = "<%= data.logo2%>";
+      let logoname3 = "<%= data.logo3%>";
+
+      let project_name = document.querySelector("#project_name")
+      let logo = document.querySelector("#logo")
+      let logo2 = document.querySelector("#logo2")
+      let logo3 = document.querySelector("#logo3")
+      let cost = document.querySelector("#cost")
+      let supply = document.querySelector("#supply")
+      let type = document.querySelector("#type")
+      let release_date = document.querySelector("#release_date")
+      let release_time = document.querySelector("#release_time")
+      let description = document.querySelector("#description")
+      let discord = document.querySelector("#discord")
+      let twitter = document.querySelector("#twitter")
+      let twitter_count = document.querySelector("#twitter_count")
+      let discord_count = document.querySelector("#discord_count")
+      let website = document.querySelector("#website")
+      let more_information = document.querySelector("#more_information")
+      let intrested = document.querySelector("#intrested")
+      let promote = document.querySelector("#promote")
+      let approve = document.querySelector("#approve")
+
+
+      logo.onchange = async (e) => {
+        let logotype = e.target.files[0].type.split('/')[0]
+        if (logotype != "image") {
+          alert("Invalid Image Formate")
+          e.target.value = ""
+        } else {
+          logo64 = await convertBase64(e.target.files[0]);
+          logoname = ""
+        }
+      }
+      logo2.onchange = async (e) => {
+        let logotype = e.target.files[0].type.split('/')[0]
+        if (logotype != "image") {
+          alert("Invalid Image Formate")
+          e.target.value = ""
+        } else {
+          logo264 = await convertBase64(e.target.files[0]);
+          logoname2 = ""
+        }
+      }
+      logo3.onchange = async (e) => {
+        let logotype = e.target.files[0].type.split('/')[0]
+        if (logotype != "image") {
+          alert("Invalid Image Formate")
+          e.target.value = ""
+        } else {
+          logo364 = await convertBase64(e.target.files[0]);
+          logoname3 = ""
+        }
+      }
+
+
+      addform.onsubmit = async (e) => {
+        e.preventDefault();
+      }
+
+      submitbtn.onclick = () => {
+        console.log(project_name.value);
+        console.log(cost.value);
+        console.log(supply.value);
+        console.log(type.value);
+        console.log(release_date.value);
+        console.log(release_time.value);
+        console.log(description.value);
+        console.log(discord.value);
+        console.log(twitter.value);
+        console.log(website.value);
+        console.log(more_information.value);
+
+        const data = {
+          project_name_for_id: "<%= data._id %>",
+          project_name: project_name.value,
+          logo: logo64,
+          logo2: logo264,
+          logo3: logo364,
+          logoname,
+          logoname2,
+          logoname3,
+          cost: cost.value,
+          supply: supply.value,
+          type: type.value,
+          release_date: release_date.value,
+          release_time: release_time.value,
+          description: description.value,
+          discord: discord.value,
+          twitter: twitter.value,
+          twitter_count : twitter_count.value,
+          discord_count : discord_count.value,
+          website: website.value,
+          more_information: more_information.value,
+          intrested: intrested.value,
+          promote:promote.value,
+          approve:approve.value,
+          created_by: "admin@gmail.com",
+          token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdXNlciI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTYzMjA1ODM4Mn0.VeBG72tNnWJuOkF52HDEx2ydN3cXz3iDmUDYMUIOZ8o"
+        }
+
+        if (project_name.value != "" && cost.value != "" && supply.value != "" && type.value != "") {
+          loader.style.opacity = "1"
+
+          axios.post(`${url}/updateproject`, data).then(async function (response) {
+            if (response.data.code == 11000) {
+              alert("Project Name Already Exist")
+            }
+            else if (response.data.code == 100) {
+              window.location.href = '/editproject/<%= data.project_id %>';;
+              alert("Project Updated successfuly")
+            }
+            else if (response.data.code == 400 || response.data.code == 0 || response.status == 200) {
+              alert(response.data.message)
+            }
+            else {
+              alert("Nothing")
+            }
+            loader.style.opacity = "0"
+          })
+
+        }
+      }
+
+    </script>
+
+
+    <script src="../vendor/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../vendor/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- bs-custom-file-input -->
+    <script src="../vendor/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <!-- AdminLTE App -->
+
+    <script src="../vendor/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../vendor/dist/js/demo.js"></script>
+
+    <script>
+      $(function () {
+        bsCustomFileInput.init();
+      });
+    </script>
